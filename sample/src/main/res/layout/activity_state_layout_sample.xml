@@ -8,9 +8,46 @@
     tools:context=".StateLayoutSampleActivity">
 
     <com.erkutaras.statelayout.StateLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/stateLayout"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp" android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_error">
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:gravity="center">
+            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                      android:padding="8dp"
+                      android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."/>
+        </LinearLayout>
 
     </com.erkutaras.statelayout.StateLayout>
+    <Button
+        android:id="@+id/button_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+        android:text="loading"
+        app:layout_constraintEnd_toStartOf="@+id/button_error"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <Button
+        android:id="@+id/button_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp" android:text="error"
+        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <Button
+        android:id="@+id/button_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+        android:text="content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_error"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
