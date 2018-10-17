@@ -26,28 +26,38 @@
     <Button
         android:id="@+id/button_loading"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp" android:layout_marginTop="8dp"
-        android:text="loading"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp" android:text="loading"
         app:layout_constraintEnd_toStartOf="@+id/button_error"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
     <Button
         android:id="@+id/button_error"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp" android:text="error"
-        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+        android:text="error" app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
     <Button
         android:id="@+id/button_content"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_error"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toEndOf="@+id/button_error" app:layout_constraintTop_toTopOf="parent"/>
+    <Button
+        android:id="@+id/button_loading_with_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+        android:text="loading with content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/button_error"/>
 
 </android.support.constraint.ConstraintLayout>

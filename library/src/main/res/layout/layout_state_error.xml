@@ -2,53 +2,47 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="?android:colorBackground"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="64dp">
 
-    <android.support.v7.widget.AppCompatImageView
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        app:srcCompat="@drawable/ic_error_outline_black_240dp"
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:srcCompat="@drawable/ic_error_outline_black_64dp"
         app:tint="?colorAccent"/>
 
     <TextView
+        android:id="@+id/textView_state_layout_error_title"
+        style="@android:style/TextAppearance.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        android:layout_marginTop="12dp"
-        android:fontFamily="sans-serif-medium"
+        android:layout_marginBottom="8dp"
         android:gravity="center_horizontal"
-        android:letterSpacing="-0.01"
-        android:text="Oops!"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:textStyle="normal"/>
+        android:textStyle="normal"
+        android:text="Oops..."/>
 
     <TextView
+        android:id="@+id/textView_state_layout_error_message"
+        style="@android:style/TextAppearance.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
+        android:layout_marginBottom="32dp"
         android:gravity="center_horizontal"
-        android:letterSpacing="-0.01"
-        android:text="Sorry!... Something goes wrong :("
-        android:textColor="@android:color/black"
-        android:textSize="12sp"
-        android:textStyle="normal"/>
+        android:textStyle="normal"
+        android:text="Sorry!... Something goes wrong :("/>
 
     <Button
-        android:id="@+id/state_layout_error_button"
+        android:id="@+id/button_state_layout_error"
+        style="@android:style/TextAppearance.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="sans-serif"
         android:gravity="center"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="Try Again"
+        android:textAllCaps="false"
         android:textColor="@android:color/black"
-        android:textSize="12sp"
-        android:textStyle="bold"/>
+        android:text="Try Again"/>
 </LinearLayout>

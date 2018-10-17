@@ -21,6 +21,7 @@ class StateLayoutSampleActivity : AppCompatActivity(), OnStateLayoutListener {
         findViewById<Button>(R.id.button_loading).setOnClickListener { stateLayout?.loading() }
         findViewById<Button>(R.id.button_content).setOnClickListener { stateLayout?.content() }
         findViewById<Button>(R.id.button_error).setOnClickListener { stateLayout?.error() }
+        findViewById<Button>(R.id.button_loading_with_content).setOnClickListener { stateLayout?.loadingWithContent() }
     }
 
     override fun onErrorStateButtonClick() {
