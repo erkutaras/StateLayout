@@ -10,11 +10,14 @@
     android:padding="64dp">
 
     <ImageView
+        android:id="@+id/imageView_state_layout_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        app:srcCompat="@drawable/ic_error_outline_black_64dp"
-        app:tint="?colorAccent"/>
+        android:visibility="gone"
+        app:tint="?colorAccent"
+        tools:srcCompat="@drawable/ic_error_outline_black_64dp"
+        tools:visibility="visible"/>
 
     <TextView
         android:id="@+id/textView_state_layout_error_title"
@@ -24,7 +27,9 @@
         android:layout_marginBottom="8dp"
         android:gravity="center_horizontal"
         android:textStyle="normal"
-        android:text="Oops..."/>
+        android:visibility="gone"
+        tools:text="Oops..."
+        tools:visibility="visible"/>
 
     <TextView
         android:id="@+id/textView_state_layout_error_message"
@@ -34,7 +39,9 @@
         android:layout_marginBottom="32dp"
         android:gravity="center_horizontal"
         android:textStyle="normal"
-        android:text="Sorry!... Something goes wrong :("/>
+        android:visibility="gone"
+        tools:text="Sorry!... Something goes wrong :("
+        tools:visibility="visible"/>
 
     <Button
         android:id="@+id/button_state_layout_error"
@@ -44,5 +51,7 @@
         android:gravity="center"
         android:textAllCaps="false"
         android:textColor="@android:color/black"
-        android:text="Try Again"/>
+        android:visibility="gone"
+        tools:text="Try Again"
+        tools:visibility="visible"/>
 </LinearLayout>

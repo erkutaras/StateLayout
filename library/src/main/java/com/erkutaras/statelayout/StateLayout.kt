@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 
 /**
  * Created by erkutaras on 9.09.2018.
@@ -22,7 +24,6 @@ class StateLayout @JvmOverloads constructor(context: Context,
     private var loadingWithContentLayout: View? = null
 
     private var state: State = State.CONTENT
-    var onStateLayoutListener: OnStateLayoutListener? = null
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -47,9 +48,6 @@ class StateLayout @JvmOverloads constructor(context: Context,
 
     private fun setupErrorState() {
         errorLayout = inflate(R.layout.layout_state_error)
-        errorLayout?.findViewById<Button>(R.id.button_state_layout_error)?.setOnClickListener {
-            onStateLayoutListener?.onErrorStateButtonClick()
-        }
         errorLayout?.visibility = View.GONE
         addView(errorLayout)
     }
@@ -60,36 +58,74 @@ class StateLayout @JvmOverloads constructor(context: Context,
         addView(loadingWithContentLayout)
     }
 
-    fun loading() {
+    fun loading(): StateLayout {
         state = State.LOADING
         loadingLayout?.visibility = View.VISIBLE
         contentLayout?.visibility = View.GONE
         errorLayout?.visibility = View.GONE
         loadingWithContentLayout?.visibility = GONE
+        return this
     }
 
-    fun content() {
+    fun content(): StateLayout {
         state = State.CONTENT
         loadingLayout?.visibility = View.GONE
         contentLayout?.visibility = View.VISIBLE
         errorLayout?.visibility = View.GONE
         loadingWithContentLayout?.visibility = GONE
+        return this
     }
 
-    fun error() {
+    fun error(imageRes: Int): StateLayout {
+        val image =
+                errorLayout?.findViewById<ImageView>(R.id.imageView_state_layout_error)
+        image?.setImageResource(imageRes)
+        image?.visibility = View.VISIBLE
+        return error()
+    }
+
+    fun error(title: String?, message: String?): StateLayout {
+        title?.let {
+            val textViewTitle =
+                    errorLayout?.findViewById<TextView>(R.id.textView_state_layout_error_title)
+            textViewTitle?.text = it
+            textViewTitle?.visibility = View.VISIBLE
+        }
+        message?.let {
+            val textViewMessage =
+                    errorLayout?.findViewById<TextView>(R.id.textView_state_layout_error_message)
+            textViewMessage?.text = it
+            textViewMessage?.visibility = View.VISIBLE
+        }
+        return error()
+    }
+
+    fun error(buttonText: String?, onStateLayoutListener: OnStateLayoutListener?): StateLayout {
+        val button = errorLayout?.findViewById<Button>(R.id.button_state_layout_error)
+        button?.let { it ->
+            it.text = buttonText
+            it.setOnClickListener { onStateLayoutListener?.onErrorStateButtonClick() }
+            it.visibility = View.VISIBLE
+        }
+        return error()
+    }
+
+    fun error(): StateLayout {
         state = State.ERROR
         loadingLayout?.visibility = View.GONE
         contentLayout?.visibility = View.GONE
         errorLayout?.visibility = View.VISIBLE
         loadingWithContentLayout?.visibility = GONE
+        return this
     }
 
-    fun loadingWithContent() {
+    fun loadingWithContent(): StateLayout {
         state = State.LOADING_WITH_CONTENT
         loadingLayout?.visibility = View.GONE
         contentLayout?.visibility = View.VISIBLE
         errorLayout?.visibility = View.GONE
         loadingWithContentLayout?.visibility = View.VISIBLE
+        return this
     }
 
     private fun checkChildCount() {
