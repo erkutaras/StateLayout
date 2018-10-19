@@ -20,7 +20,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
 
     private var contentLayout: View? = null
     private var loadingLayout: View? = null
-    private var errorLayout: View? = null
+    private var infoLayout: View? = null
     private var loadingWithContentLayout: View? = null
 
     private var state: State = State.CONTENT
@@ -29,7 +29,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
         super.onFinishInflate()
         setupContentState()
         setupLoadingState()
-        setupErrorState()
+        setupInfoState()
         setupLoadingWithContentState()
 
         checkChildCount()
@@ -46,10 +46,10 @@ class StateLayout @JvmOverloads constructor(context: Context,
         addView(loadingLayout)
     }
 
-    private fun setupErrorState() {
-        errorLayout = inflate(R.layout.layout_state_error)
-        errorLayout?.visibility = View.GONE
-        addView(errorLayout)
+    private fun setupInfoState() {
+        infoLayout = inflate(R.layout.layout_state_info)
+        infoLayout?.visibility = View.GONE
+        addView(infoLayout)
     }
 
     private fun setupLoadingWithContentState() {
@@ -62,7 +62,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
         state = State.LOADING
         loadingLayout?.visibility = View.VISIBLE
         contentLayout?.visibility = View.GONE
-        errorLayout?.visibility = View.GONE
+        infoLayout?.visibility = View.GONE
         loadingWithContentLayout?.visibility = GONE
         return this
     }
@@ -71,50 +71,50 @@ class StateLayout @JvmOverloads constructor(context: Context,
         state = State.CONTENT
         loadingLayout?.visibility = View.GONE
         contentLayout?.visibility = View.VISIBLE
-        errorLayout?.visibility = View.GONE
+        infoLayout?.visibility = View.GONE
         loadingWithContentLayout?.visibility = GONE
         return this
     }
 
-    fun error(imageRes: Int): StateLayout {
+    fun infoImage(imageRes: Int): StateLayout {
         val image =
-                errorLayout?.findViewById<ImageView>(R.id.imageView_state_layout_error)
+                infoLayout?.findViewById<ImageView>(R.id.imageView_state_layout_info)
         image?.setImageResource(imageRes)
         image?.visibility = View.VISIBLE
-        return error()
+        return info()
     }
 
-    fun error(title: String?, message: String?): StateLayout {
-        title?.let {
-            val textViewTitle =
-                    errorLayout?.findViewById<TextView>(R.id.textView_state_layout_error_title)
-            textViewTitle?.text = it
-            textViewTitle?.visibility = View.VISIBLE
-        }
-        message?.let {
-            val textViewMessage =
-                    errorLayout?.findViewById<TextView>(R.id.textView_state_layout_error_message)
-            textViewMessage?.text = it
-            textViewMessage?.visibility = View.VISIBLE
-        }
-        return error()
+    fun infoTitle(title: String): StateLayout {
+        val textViewTitle =
+                infoLayout?.findViewById<TextView>(R.id.textView_state_layout_info_title)
+        textViewTitle?.text = title
+        textViewTitle?.visibility = View.VISIBLE
+        return info()
     }
 
-    fun error(buttonText: String?, onStateLayoutListener: OnStateLayoutListener?): StateLayout {
-        val button = errorLayout?.findViewById<Button>(R.id.button_state_layout_error)
+    fun infoMessage(message: String): StateLayout {
+        val textViewMessage =
+                infoLayout?.findViewById<TextView>(R.id.textView_state_layout_info_message)
+        textViewMessage?.text = message
+        textViewMessage?.visibility = View.VISIBLE
+        return info()
+    }
+
+    fun infoButton(buttonText: String, onStateLayoutListener: OnStateLayoutListener?): StateLayout {
+        val button = infoLayout?.findViewById<Button>(R.id.button_state_layout_info)
         button?.let { it ->
             it.text = buttonText
-            it.setOnClickListener { onStateLayoutListener?.onErrorStateButtonClick() }
+            it.setOnClickListener { onStateLayoutListener?.onStateLayoutInfoButtonClick() }
             it.visibility = View.VISIBLE
         }
-        return error()
+        return info()
     }
 
-    fun error(): StateLayout {
-        state = State.ERROR
+    fun info(): StateLayout {
+        state = State.INFO
         loadingLayout?.visibility = View.GONE
         contentLayout?.visibility = View.GONE
-        errorLayout?.visibility = View.VISIBLE
+        infoLayout?.visibility = View.VISIBLE
         loadingWithContentLayout?.visibility = GONE
         return this
     }
@@ -123,7 +123,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
         state = State.LOADING_WITH_CONTENT
         loadingLayout?.visibility = View.GONE
         contentLayout?.visibility = View.VISIBLE
-        errorLayout?.visibility = View.GONE
+        infoLayout?.visibility = View.GONE
         loadingWithContentLayout?.visibility = View.VISIBLE
         return this
     }

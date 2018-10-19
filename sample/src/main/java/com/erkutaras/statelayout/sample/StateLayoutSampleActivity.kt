@@ -24,7 +24,7 @@ class StateLayoutSampleActivity : AppCompatActivity(), OnStateLayoutListener {
         webView.loadUrl(WEB_URL)
     }
 
-    override fun onErrorStateButtonClick() {
+    override fun onStateLayoutInfoButtonClick() {
         webView.loadUrl(WEB_URL)
         Toast.makeText(this, "Refreshing Page...", Toast.LENGTH_SHORT).show()
     }
@@ -55,9 +55,10 @@ class StateLayoutSampleActivity : AppCompatActivity(), OnStateLayoutListener {
         override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
             super.onReceivedError(view, request, error)
             hasError = true
-            stateLayout.error(R.drawable.ic_android_black_64dp)
-                    .error("Ooops.... :(", "Unexpected error occurred. Please refresh the page!")
-                    .error("Refresh", onStateLayoutListener)
+            stateLayout.infoImage(R.drawable.ic_android_black_64dp)
+                    .infoTitle("Ooops.... :(")
+                    .infoMessage("Unexpected error occurred. Please refresh the page!")
+                    .infoButton("Refresh", onStateLayoutListener)
         }
 
     }
