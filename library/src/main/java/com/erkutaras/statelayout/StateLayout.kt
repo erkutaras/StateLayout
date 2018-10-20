@@ -77,32 +77,46 @@ class StateLayout @JvmOverloads constructor(context: Context,
     }
 
     fun infoImage(imageRes: Int): StateLayout {
-        val image =
-                infoLayout?.findViewById<ImageView>(R.id.imageView_state_layout_info)
-        image?.setImageResource(imageRes)
-        image?.visibility = View.VISIBLE
+        infoLayout?.findViewById<ImageView>(R.id.imageView_state_layout_info)?.let {
+            it.setImageResource(imageRes)
+            it.visibility = View.VISIBLE
+        }
         return info()
     }
 
     fun infoTitle(title: String): StateLayout {
-        val textViewTitle =
-                infoLayout?.findViewById<TextView>(R.id.textView_state_layout_info_title)
-        textViewTitle?.text = title
-        textViewTitle?.visibility = View.VISIBLE
+        infoLayout?.findViewById<TextView>(R.id.textView_state_layout_info_title)?.let {
+            it.text = title
+            it.visibility = View.VISIBLE
+        }
         return info()
     }
 
     fun infoMessage(message: String): StateLayout {
-        val textViewMessage =
-                infoLayout?.findViewById<TextView>(R.id.textView_state_layout_info_message)
-        textViewMessage?.text = message
-        textViewMessage?.visibility = View.VISIBLE
+        infoLayout?.findViewById<TextView>(R.id.textView_state_layout_info_message)?.let {
+            it.text = message
+            it.visibility = View.VISIBLE
+        }
+        return info()
+    }
+
+    fun infoButtonListener(onStateLayoutListener: OnStateLayoutListener?): StateLayout {
+        infoLayout?.findViewById<Button>(R.id.button_state_layout_info)?.setOnClickListener {
+            onStateLayoutListener?.onStateLayoutInfoButtonClick()
+        }
+        return info()
+    }
+
+    fun infoButtonText(buttonText: String): StateLayout {
+        infoLayout?.findViewById<Button>(R.id.button_state_layout_info)?.let {
+            it.text = buttonText
+            it.visibility = View.VISIBLE
+        }
         return info()
     }
 
     fun infoButton(buttonText: String, onStateLayoutListener: OnStateLayoutListener?): StateLayout {
-        val button = infoLayout?.findViewById<Button>(R.id.button_state_layout_info)
-        button?.let { it ->
+        infoLayout?.findViewById<Button>(R.id.button_state_layout_info)?.let { it ->
             it.text = buttonText
             it.setOnClickListener { onStateLayoutListener?.onStateLayoutInfoButtonClick() }
             it.visibility = View.VISIBLE
@@ -141,4 +155,11 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return LayoutInflater.from(context).inflate(layoutId, null)
     }
 
+    interface OnStateLayoutListener {
+        fun onStateLayoutInfoButtonClick()
+    }
+
+    enum class State {
+        LOADING, CONTENT, INFO, LOADING_WITH_CONTENT
+    }
 }
