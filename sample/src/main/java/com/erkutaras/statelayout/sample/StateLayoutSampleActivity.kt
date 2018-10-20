@@ -8,13 +8,12 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
-import com.erkutaras.statelayout.OnStateLayoutListener
 import com.erkutaras.statelayout.StateLayout
 import kotlinx.android.synthetic.main.activity_state_layout_sample.*
 
 const val WEB_URL = "http://www.erkutaras.com/"
 
-class StateLayoutSampleActivity : AppCompatActivity(), OnStateLayoutListener {
+class StateLayoutSampleActivity : AppCompatActivity(), StateLayout.OnStateLayoutListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +34,7 @@ class StateLayoutSampleActivity : AppCompatActivity(), OnStateLayoutListener {
     }
 
     private class SampleWebViewClient(val stateLayout: StateLayout,
-                                      val onStateLayoutListener: OnStateLayoutListener)
+                                      val onStateLayoutListener: StateLayout.OnStateLayoutListener)
         : WebViewClient() {
 
         var hasError: Boolean = false
