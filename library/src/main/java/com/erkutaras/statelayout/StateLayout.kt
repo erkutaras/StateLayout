@@ -67,6 +67,12 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return this
     }
 
+    fun showLoadingState(showLoading: Boolean) {
+        if (showLoading) {
+            loading()
+        }
+    }
+
     fun content(): StateLayout {
         state = State.CONTENT
         loadingLayout?.visibility = View.GONE
@@ -74,6 +80,12 @@ class StateLayout @JvmOverloads constructor(context: Context,
         infoLayout?.visibility = View.GONE
         loadingWithContentLayout?.visibility = GONE
         return this
+    }
+
+    fun showContentState(showContent: Boolean) {
+        if (showContent) {
+            content()
+        }
     }
 
     fun infoImage(imageRes: Int): StateLayout {
@@ -133,6 +145,17 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return this
     }
 
+    fun showInfoState(stateInfo: StateInfo) {
+        with(stateInfo) {
+            infoImage(infoImage)
+            infoTitle(infoTitle)
+            infoMessage(infoMessage)
+            infoButtonText(infoButtonText)
+            infoButtonListener(stateInfo.onStateLayoutListener)
+        }
+        state = stateInfo.state
+    }
+
     fun loadingWithContent(): StateLayout {
         state = State.LOADING_WITH_CONTENT
         loadingLayout?.visibility = View.GONE
@@ -149,7 +172,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
     }
 
     private fun throwChildCountException(): Nothing =
-            throw IllegalStateException("StateLayout can host only one direct child")
+        throw IllegalStateException("StateLayout can host only one direct child")
 
     private fun inflate(@LayoutRes layoutId: Int): View? {
         return LayoutInflater.from(context).inflate(layoutId, null)
@@ -160,6 +183,15 @@ class StateLayout @JvmOverloads constructor(context: Context,
     }
 
     enum class State {
-        LOADING, CONTENT, INFO, LOADING_WITH_CONTENT
+        LOADING, CONTENT, INFO, LOADING_WITH_CONTENT, ERROR, EMPTY
     }
+
+    data class StateInfo(
+        val infoImage: Int,
+        val infoTitle: String,
+        val infoMessage: String,
+        val infoButtonText: String,
+        val state: StateLayout.State = State.INFO,
+        val onStateLayoutListener: StateLayout.OnStateLayoutListener? = null
+    )
 }
