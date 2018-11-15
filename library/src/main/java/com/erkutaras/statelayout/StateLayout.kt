@@ -145,15 +145,17 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return this
     }
 
-    fun showInfoState(stateInfo: StateInfo) {
-        with(stateInfo) {
-            infoImage(infoImage)
-            infoTitle(infoTitle)
-            infoMessage(infoMessage)
-            infoButtonText(infoButtonText)
-            infoButtonListener(stateInfo.onStateLayoutListener)
+    fun showInfoState(stateInfo: StateInfo?) {
+        stateInfo?.let {
+            with(it) {
+                infoImage(infoImage)
+                infoTitle(infoTitle)
+                infoMessage(infoMessage)
+                infoButtonText(infoButtonText)
+                infoButtonListener(stateInfo.onStateLayoutListener)
+                this@StateLayout.state = it.state
+            }
         }
-        state = stateInfo.state
     }
 
     fun loadingWithContent(): StateLayout {
