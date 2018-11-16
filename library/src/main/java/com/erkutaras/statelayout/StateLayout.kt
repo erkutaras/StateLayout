@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import com.erkutaras.statelayout.StateLayout.State.*
 
 /**
  * Created by erkutaras on 9.09.2018.
@@ -23,7 +24,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
     private var infoLayout: View? = null
     private var loadingWithContentLayout: View? = null
 
-    private var state: State = State.CONTENT
+    private var state: State = CONTENT
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -59,7 +60,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
     }
 
     fun loading(): StateLayout {
-        state = State.LOADING
+        state = LOADING
         loadingLayout?.visibility = View.VISIBLE
         contentLayout?.visibility = View.GONE
         infoLayout?.visibility = View.GONE
@@ -67,25 +68,13 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return this
     }
 
-    fun showLoadingState(showLoading: Boolean) {
-        if (showLoading) {
-            loading()
-        }
-    }
-
     fun content(): StateLayout {
-        state = State.CONTENT
+        state = CONTENT
         loadingLayout?.visibility = View.GONE
         contentLayout?.visibility = View.VISIBLE
         infoLayout?.visibility = View.GONE
         loadingWithContentLayout?.visibility = GONE
         return this
-    }
-
-    fun showContentState(showContent: Boolean) {
-        if (showContent) {
-            content()
-        }
     }
 
     fun infoImage(imageRes: Int): StateLayout {
@@ -137,7 +126,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
     }
 
     fun info(): StateLayout {
-        state = State.INFO
+        state = INFO
         loadingLayout?.visibility = View.GONE
         contentLayout?.visibility = View.GONE
         infoLayout?.visibility = View.VISIBLE
@@ -145,21 +134,23 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return this
     }
 
-    fun showInfoState(stateInfo: StateInfo?) {
-        stateInfo?.let {
-            with(it) {
-                infoImage(infoImage)
-                infoTitle(infoTitle)
-                infoMessage(infoMessage)
-                infoButtonText(infoButtonText)
+    fun showState(stateInfo: StateInfo) {
+        when (stateInfo.state) {
+            LOADING -> loading()
+            CONTENT -> content()
+            LOADING_WITH_CONTENT -> loadingWithContent()
+            INFO, ERROR, EMPTY -> {
+                stateInfo.infoImage?.let { infoImage(it) }
+                stateInfo.infoTitle?.let { infoTitle(it) }
+                stateInfo.infoMessage?.let { infoMessage(it) }
+                stateInfo.infoButtonText?.let { infoButtonText(it) }
                 infoButtonListener(stateInfo.onStateLayoutListener)
-                this@StateLayout.state = it.state
             }
         }
     }
 
     fun loadingWithContent(): StateLayout {
-        state = State.LOADING_WITH_CONTENT
+        state = LOADING_WITH_CONTENT
         loadingLayout?.visibility = View.GONE
         contentLayout?.visibility = View.VISIBLE
         infoLayout?.visibility = View.GONE
@@ -189,11 +180,11 @@ class StateLayout @JvmOverloads constructor(context: Context,
     }
 
     data class StateInfo(
-        val infoImage: Int,
-        val infoTitle: String,
-        val infoMessage: String,
-        val infoButtonText: String,
-        val state: StateLayout.State = State.INFO,
+        val infoImage: Int?,
+        val infoTitle: String?,
+        val infoMessage: String?,
+        val infoButtonText: String?,
+        val state: StateLayout.State = INFO,
         val onStateLayoutListener: StateLayout.OnStateLayoutListener? = null
     )
 }
