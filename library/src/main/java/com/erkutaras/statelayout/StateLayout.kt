@@ -33,12 +33,13 @@ class StateLayout @JvmOverloads constructor(context: Context,
         setupInfoState()
         setupLoadingWithContentState()
 
+        updateWithState()
         checkChildCount()
     }
 
     private fun setupContentState() {
         contentLayout = getChildAt(0)
-        contentLayout?.visibility = View.VISIBLE
+        contentLayout?.visibility = View.GONE
     }
 
     private fun setupLoadingState() {
@@ -57,6 +58,19 @@ class StateLayout @JvmOverloads constructor(context: Context,
         loadingWithContentLayout = inflate(R.layout.layout_state_loading_with_content)
         loadingWithContentLayout?.visibility = View.GONE
         addView(loadingWithContentLayout)
+    }
+
+    private fun updateWithState() {
+        when(state) {
+            LOADING -> loading()
+            CONTENT -> content()
+            INFO, ERROR, EMPTY -> info()
+            LOADING_WITH_CONTENT -> loadingWithContent()
+        }
+    }
+
+    fun initialState(state: State) {
+        this.state = state
     }
 
     fun loading(): StateLayout {
