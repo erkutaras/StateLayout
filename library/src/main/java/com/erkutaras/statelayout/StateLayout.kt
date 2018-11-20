@@ -180,10 +180,10 @@ class StateLayout @JvmOverloads constructor(context: Context,
     }
 
     data class StateInfo(
-        val infoImage: Int?,
-        val infoTitle: String?,
-        val infoMessage: String?,
-        val infoButtonText: String?,
+        val infoImage: Int? = null,
+        val infoTitle: String? = null,
+        val infoMessage: String? = null,
+        val infoButtonText: String? = null,
         val state: StateLayout.State = INFO,
         val onStateLayoutListener: StateLayout.OnStateLayoutListener? = null
     )
