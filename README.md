@@ -31,7 +31,7 @@ allprojects {
 **Step 2.** Add the library dependency to your project build.gradle:
 ```
 dependencies {
-    implementation 'com.github.erkutaras:StateLayout:1.0.5'
+    implementation 'com.github.erkutaras:StateLayout:1.0.6'
 }
 ```
 
