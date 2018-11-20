@@ -134,8 +134,8 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return this
     }
 
-    fun showState(stateInfo: StateInfo) {
-        when (stateInfo.state) {
+    fun showState(stateInfo: StateInfo?) {
+        when (stateInfo?.state) {
             LOADING -> loading()
             CONTENT -> content()
             LOADING_WITH_CONTENT -> loadingWithContent()
