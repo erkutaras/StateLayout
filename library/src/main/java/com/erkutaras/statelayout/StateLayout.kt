@@ -115,11 +115,11 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return info()
     }
 
-    fun infoButtonListener(onStateLayoutListener: OnStateLayoutListener?): StateLayout {
+    fun infoButtonListener(block:() -> Unit) {
         infoLayout?.findViewById<Button>(R.id.button_state_layout_info)?.setOnClickListener {
-            onStateLayoutListener?.onStateLayoutInfoButtonClick()
+            block.invoke()
         }
-        return info()
+        info()
     }
 
     fun infoButtonText(buttonText: String): StateLayout {
@@ -158,7 +158,6 @@ class StateLayout @JvmOverloads constructor(context: Context,
                 stateInfo.infoTitle?.let { infoTitle(it) }
                 stateInfo.infoMessage?.let { infoMessage(it) }
                 stateInfo.infoButtonText?.let { infoButtonText(it) }
-                infoButtonListener(stateInfo.onStateLayoutListener)
             }
         }
     }
