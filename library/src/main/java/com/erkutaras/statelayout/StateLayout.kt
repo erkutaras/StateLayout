@@ -115,6 +115,13 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return info()
     }
 
+    fun infoButtonListener(onStateLayoutListener: OnStateLayoutListener?): StateLayout {
+        infoLayout?.findViewById<Button>(R.id.button_state_layout_info)?.setOnClickListener {
+            onStateLayoutListener?.onStateLayoutInfoButtonClick()
+        }
+        return info()
+    }
+
     fun infoButtonListener(block:() -> Unit) {
         infoLayout?.findViewById<Button>(R.id.button_state_layout_info)?.setOnClickListener {
             block.invoke()
