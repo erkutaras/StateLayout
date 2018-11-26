@@ -55,9 +55,12 @@ class StateLayoutSampleActivity : AppCompatActivity(), StateLayout.OnStateLayout
             super.onReceivedError(view, request, error)
             hasError = true
             stateLayout.infoImage(R.drawable.ic_android_black_64dp)
-                    .infoTitle("Ooops.... :(")
-                    .infoMessage("Unexpected error occurred. Please refresh the page!")
-                    .infoButton("Refresh", onStateLayoutListener)
+                .infoTitle("Ooops.... :(")
+                .infoMessage("Unexpected error occurred. Please refresh the page!")
+                .infoButtonText("Refresh")
+                .infoButtonListener {
+                    onStateLayoutListener.onStateLayoutInfoButtonClick()
+                }
         }
 
     }

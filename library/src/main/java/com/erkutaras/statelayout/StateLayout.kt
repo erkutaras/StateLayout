@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import com.erkutaras.statelayout.StateLayout.State.*
 
 /**
  * Created by erkutaras on 9.09.2018.
@@ -23,7 +24,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
     private var infoLayout: View? = null
     private var loadingWithContentLayout: View? = null
 
-    private var state: State = State.CONTENT
+    private var state: State = CONTENT
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -32,12 +33,13 @@ class StateLayout @JvmOverloads constructor(context: Context,
         setupInfoState()
         setupLoadingWithContentState()
 
+        updateWithState()
         checkChildCount()
     }
 
     private fun setupContentState() {
         contentLayout = getChildAt(0)
-        contentLayout?.visibility = View.VISIBLE
+        contentLayout?.visibility = View.GONE
     }
 
     private fun setupLoadingState() {
@@ -58,8 +60,21 @@ class StateLayout @JvmOverloads constructor(context: Context,
         addView(loadingWithContentLayout)
     }
 
+    private fun updateWithState() {
+        when(state) {
+            LOADING -> loading()
+            CONTENT -> content()
+            INFO, ERROR, EMPTY -> info()
+            LOADING_WITH_CONTENT -> loadingWithContent()
+        }
+    }
+
+    fun initialState(state: State) {
+        this.state = state
+    }
+
     fun loading(): StateLayout {
-        state = State.LOADING
+        state = LOADING
         loadingLayout?.visibility = View.VISIBLE
         contentLayout?.visibility = View.GONE
         infoLayout?.visibility = View.GONE
@@ -68,7 +83,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
     }
 
     fun content(): StateLayout {
-        state = State.CONTENT
+        state = CONTENT
         loadingLayout?.visibility = View.GONE
         contentLayout?.visibility = View.VISIBLE
         infoLayout?.visibility = View.GONE
@@ -107,6 +122,13 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return info()
     }
 
+    fun infoButtonListener(block:() -> Unit) {
+        infoLayout?.findViewById<Button>(R.id.button_state_layout_info)?.setOnClickListener {
+            block.invoke()
+        }
+        info()
+    }
+
     fun infoButtonText(buttonText: String): StateLayout {
         infoLayout?.findViewById<Button>(R.id.button_state_layout_info)?.let {
             it.text = buttonText
@@ -125,7 +147,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
     }
 
     fun info(): StateLayout {
-        state = State.INFO
+        state = INFO
         loadingLayout?.visibility = View.GONE
         contentLayout?.visibility = View.GONE
         infoLayout?.visibility = View.VISIBLE
@@ -133,8 +155,22 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return this
     }
 
+    fun showState(stateInfo: StateInfo?) {
+        when (stateInfo?.state) {
+            LOADING -> loading()
+            CONTENT -> content()
+            LOADING_WITH_CONTENT -> loadingWithContent()
+            INFO, ERROR, EMPTY -> {
+                stateInfo.infoImage?.let { infoImage(it) }
+                stateInfo.infoTitle?.let { infoTitle(it) }
+                stateInfo.infoMessage?.let { infoMessage(it) }
+                stateInfo.infoButtonText?.let { infoButtonText(it) }
+            }
+        }
+    }
+
     fun loadingWithContent(): StateLayout {
-        state = State.LOADING_WITH_CONTENT
+        state = LOADING_WITH_CONTENT
         loadingLayout?.visibility = View.GONE
         contentLayout?.visibility = View.VISIBLE
         infoLayout?.visibility = View.GONE
@@ -149,7 +185,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
     }
 
     private fun throwChildCountException(): Nothing =
-            throw IllegalStateException("StateLayout can host only one direct child")
+        throw IllegalStateException("StateLayout can host only one direct child")
 
     private fun inflate(@LayoutRes layoutId: Int): View? {
         return LayoutInflater.from(context).inflate(layoutId, null)
@@ -160,6 +196,15 @@ class StateLayout @JvmOverloads constructor(context: Context,
     }
 
     enum class State {
-        LOADING, CONTENT, INFO, LOADING_WITH_CONTENT
+        LOADING, CONTENT, INFO, LOADING_WITH_CONTENT, ERROR, EMPTY
     }
+
+    data class StateInfo(
+        val infoImage: Int? = null,
+        val infoTitle: String? = null,
+        val infoMessage: String? = null,
+        val infoButtonText: String? = null,
+        val state: StateLayout.State = INFO,
+        val onStateLayoutListener: StateLayout.OnStateLayoutListener? = null
+    )
 }
