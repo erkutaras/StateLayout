@@ -216,13 +216,28 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return this
     }
 
-    fun provideLoadingStateInfo() = StateInfo(state = LOADING)
-    fun provideContentStateInfo() = StateInfo(state = CONTENT)
-    fun provideErrorStateInfo() = StateInfo(state = ERROR)
-    fun provideLoadingWithContentStateInfo() = StateInfo(state = LOADING_WITH_CONTENT)
-    fun provideInfoStateInfo() = StateInfo(state = INFO)
-    fun provideEmptyStateInfo() = StateInfo(state = EMPTY)
-    fun provideNoneStateInfo() = StateInfo(state = NONE)
+    companion object {
+        @JvmStatic
+        fun provideLoadingStateInfo() = StateInfo(state = LOADING)
+
+        @JvmStatic
+        fun provideContentStateInfo() = StateInfo(state = CONTENT)
+
+        @JvmStatic
+        fun provideErrorStateInfo() = StateInfo(state = ERROR)
+
+        @JvmStatic
+        fun provideLoadingWithContentStateInfo() = StateInfo(state = LOADING_WITH_CONTENT)
+
+        @JvmStatic
+        fun provideInfoStateInfo() = StateInfo(state = INFO)
+
+        @JvmStatic
+        fun provideEmptyStateInfo() = StateInfo(state = EMPTY)
+
+        @JvmStatic
+        fun provideNoneStateInfo() = StateInfo(state = NONE)
+    }
 
     interface OnStateLayoutListener {
         fun onStateLayoutInfoButtonClick()
