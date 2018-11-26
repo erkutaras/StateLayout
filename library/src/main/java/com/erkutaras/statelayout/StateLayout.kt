@@ -24,7 +24,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
     private var infoLayout: View? = null
     private var loadingWithContentLayout: View? = null
 
-    private var state: State = CONTENT
+    private var state: State = NONE
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -61,12 +61,33 @@ class StateLayout @JvmOverloads constructor(context: Context,
     }
 
     private fun updateWithState() {
-        when(state) {
+        when (state) {
             LOADING -> loading()
             CONTENT -> content()
             INFO, ERROR, EMPTY -> info()
             LOADING_WITH_CONTENT -> loadingWithContent()
+            NONE -> hideAll()
         }
+    }
+
+    private fun checkChildCount() {
+        if (childCount > 4 || childCount == 0) {
+            throwChildCountException()
+        }
+    }
+
+    private fun hideAll() {
+        loadingLayout?.visibility = View.GONE
+        contentLayout?.visibility = View.GONE
+        infoLayout?.visibility = View.GONE
+        loadingWithContentLayout?.visibility = GONE
+    }
+
+    private fun throwChildCountException(): Nothing =
+        throw IllegalStateException("StateLayout can host only one direct child")
+
+    private fun inflate(@LayoutRes layoutId: Int): View? {
+        return LayoutInflater.from(context).inflate(layoutId, null)
     }
 
     fun initialState(state: State) {
@@ -80,6 +101,22 @@ class StateLayout @JvmOverloads constructor(context: Context,
         infoLayout?.visibility = View.GONE
         loadingWithContentLayout?.visibility = GONE
         return this
+    }
+
+    fun showLoading(stateInfo: StateInfo?) {
+        showState(stateInfo)
+    }
+
+    fun showContent(stateInfo: StateInfo?) {
+        showState(stateInfo)
+    }
+
+    fun showInfo(stateInfo: StateInfo?) {
+        showState(stateInfo)
+    }
+
+    fun showEmpty(stateInfo: StateInfo?) {
+        showState(stateInfo)
     }
 
     fun content(): StateLayout {
@@ -122,7 +159,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return info()
     }
 
-    fun infoButtonListener(block:() -> Unit) {
+    fun infoButtonListener(block: () -> Unit) {
         infoLayout?.findViewById<Button>(R.id.button_state_layout_info)?.setOnClickListener {
             block.invoke()
         }
@@ -166,6 +203,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
                 stateInfo.infoMessage?.let { infoMessage(it) }
                 stateInfo.infoButtonText?.let { infoButtonText(it) }
             }
+            null, NONE -> hideAll()
         }
     }
 
@@ -178,25 +216,20 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return this
     }
 
-    private fun checkChildCount() {
-        if (childCount > 4 || childCount == 0) {
-            throwChildCountException()
-        }
-    }
-
-    private fun throwChildCountException(): Nothing =
-        throw IllegalStateException("StateLayout can host only one direct child")
-
-    private fun inflate(@LayoutRes layoutId: Int): View? {
-        return LayoutInflater.from(context).inflate(layoutId, null)
-    }
+    fun provideLoadingStateInfo() = StateInfo(state = LOADING)
+    fun provideContentStateInfo() = StateInfo(state = CONTENT)
+    fun provideErrorStateInfo() = StateInfo(state = ERROR)
+    fun provideLoadingWithContentStateInfo() = StateInfo(state = LOADING_WITH_CONTENT)
+    fun provideInfoStateInfo() = StateInfo(state = INFO)
+    fun provideEmptyStateInfo() = StateInfo(state = EMPTY)
+    fun provideNoneStateInfo() = StateInfo(state = NONE)
 
     interface OnStateLayoutListener {
         fun onStateLayoutInfoButtonClick()
     }
 
     enum class State {
-        LOADING, CONTENT, INFO, LOADING_WITH_CONTENT, ERROR, EMPTY
+        LOADING, CONTENT, INFO, LOADING_WITH_CONTENT, ERROR, EMPTY, NONE
     }
 
     data class StateInfo(
