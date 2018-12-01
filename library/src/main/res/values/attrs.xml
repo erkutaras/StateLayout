@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StateLayout">
+        <attr name="state" format="enum">
+            <enum name="loading" value="0"/>
+            <enum name="content" value="1"/>
+            <enum name="info" value="2"/>
+            <enum name="loading_with_content" value="3"/>
+            <enum name="error" value="4"/>
+            <enum name="empty" value="5"/>
+            <enum name="none" value="6"/>
+        </attr>
+    </declare-styleable>
+</resources>

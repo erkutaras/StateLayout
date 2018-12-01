@@ -26,6 +26,20 @@ class StateLayout @JvmOverloads constructor(context: Context,
 
     private var state: State = NONE
 
+    init {
+        context.theme.obtainStyledAttributes(
+                attrs,
+                R.styleable.StateLayout,
+                0, 0).apply {
+
+            try {
+                state = State.values()[getInteger(R.styleable.StateLayout_state, NONE.ordinal)]
+            } finally {
+                recycle()
+            }
+        }
+    }
+
     override fun onFinishInflate() {
         super.onFinishInflate()
         setupContentState()
