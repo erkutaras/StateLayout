@@ -35,6 +35,18 @@ dependencies {
 }
 ```
 
+**Optional Step.** Add the library dependency to your project build.gradle with excluded androidx.appcompat:
+
+_If you don't migrate your project with AndroidX yet, you may need to exclude androidx to prevent support libraries issues._
+
+```
+dependencies {
+    implementation ('com.github.erkutaras:StateLayout:1.1.3') {
+        exclude group: 'androidx.appcompat'
+    }
+}
+```
+
 ## Usage
 
 Simple flow for your application: First of all, add StateLayout to where you want to change states and add one direct child within that layout. After that, when your releated screen is opened, call stateLayout.loading() and request the API. After the response, change the state accocrding to the response. If there is no error, call stateLayout.content(), otherwise call info state's functions. If you want to show loading and request to API, when the content is visible, call stateLayout.loadingWithContent() and request. When the api call ended, you can change the state. 
