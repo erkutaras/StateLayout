@@ -1,7 +1,10 @@
 package com.erkutaras.statelayout.sample
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
@@ -11,7 +14,7 @@ import android.widget.Toast
 import com.erkutaras.statelayout.StateLayout
 import kotlinx.android.synthetic.main.activity_state_layout_sample.*
 
-const val WEB_URL = "http://www.erkutaras.com/"
+private const val WEB_URL = "http://www.erkutaras.com/"
 
 class StateLayoutSampleActivity : AppCompatActivity(), StateLayout.OnStateLayoutListener {
 
@@ -31,6 +34,21 @@ class StateLayoutSampleActivity : AppCompatActivity(), StateLayout.OnStateLayout
     override fun onBackPressed() {
         if (webView.canGoBack()) webView.goBack()
         else super.onBackPressed()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_sample, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_custom -> {
+                startActivity(Intent(this, CustomSampleActivity::class.java))
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private class SampleWebViewClient(val stateLayout: StateLayout,
