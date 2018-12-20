@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:tools="http://schemas.android.com/tools"
+<manifest package="com.erkutaras.statelayout.sample"
           xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.erkutaras.statelayout.sample">
+          xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -19,6 +19,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".SampleActivity"
+            android:label="@string/title_activity_sample">
         </activity>
     </application>
 
