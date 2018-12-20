@@ -26,7 +26,19 @@ class StateLayout @JvmOverloads constructor(context: Context,
 
     private var state: State = NONE
 
+    @LayoutRes
+    private var loadingLayoutRes: Int = R.layout.layout_state_loading
+    @LayoutRes
+    private var infoLayoutRes: Int = R.layout.layout_state_info
+    @LayoutRes
+    private var loadingWithContentLayoutRes: Int = R.layout.layout_state_loading_with_content
+
     init {
+
+        if (isInEditMode) {
+            state = CONTENT
+        }
+
         context.theme.obtainStyledAttributes(
                 attrs,
                 R.styleable.StateLayout,
@@ -34,6 +46,9 @@ class StateLayout @JvmOverloads constructor(context: Context,
 
             try {
                 state = State.values()[getInteger(R.styleable.StateLayout_state, NONE.ordinal)]
+                loadingLayoutRes = getResourceId(R.styleable.StateLayout_loadingLayout, R.layout.layout_state_loading)
+                infoLayoutRes = getResourceId(R.styleable.StateLayout_infoLayout, R.layout.layout_state_info)
+                loadingWithContentLayoutRes = getResourceId(R.styleable.StateLayout_loadingWithContentLayout, R.layout.layout_state_loading_with_content)
             } finally {
                 recycle()
             }
@@ -57,19 +72,19 @@ class StateLayout @JvmOverloads constructor(context: Context,
     }
 
     private fun setupLoadingState() {
-        loadingLayout = inflate(R.layout.layout_state_loading)
+        loadingLayout = inflate(loadingLayoutRes)
         loadingLayout?.visibility = View.GONE
         addView(loadingLayout)
     }
 
     private fun setupInfoState() {
-        infoLayout = inflate(R.layout.layout_state_info)
+        infoLayout = inflate(infoLayoutRes)
         infoLayout?.visibility = View.GONE
         addView(infoLayout)
     }
 
     private fun setupLoadingWithContentState() {
-        loadingWithContentLayout = inflate(R.layout.layout_state_loading_with_content)
+        loadingWithContentLayout = inflate(loadingWithContentLayoutRes)
         loadingWithContentLayout?.visibility = View.GONE
         addView(loadingWithContentLayout)
     }
