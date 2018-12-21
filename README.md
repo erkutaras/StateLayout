@@ -4,7 +4,7 @@
 [![](https://img.shields.io/badge/made%20with-kotlin-blue.svg)](https://kotlinlang.org)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-<img src="https://raw.githubusercontent.com/erkutaras/StateLayout/develop/gifs/statelayout.gif" width="250">
+<img src="https://raw.githubusercontent.com/erkutaras/StateLayout/develop/gifs/statelayout.gif" width="250">     <img src="https://raw.githubusercontent.com/erkutaras/StateLayout/develop/gifs/statelayout_custom.gif" width="250">
 
 StateLayout is a simple-use Android layout library which handles Loading, Content and Error/Info states for the activity/fragment/view. 
 
