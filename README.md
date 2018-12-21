@@ -51,6 +51,7 @@ dependencies {
 
 Simple flow for your application: First of all, add StateLayout to where you want to change states and add one direct child within that layout. After that, when your releated screen is opened, call stateLayout.loading() and request the API. After the response, change the state accocrding to the response. If there is no error, call stateLayout.content(), otherwise call info state's functions. If you want to show loading and request to API, when the content is visible, call stateLayout.loadingWithContent() and request. When the api call ended, you can change the state. 
 
+### Simple Usage
 - If you want to change or update design of the layouts(layout_state_loading.xml, layout_state_loading_with_content.xml, layout_state_info.xml), create layouts with **SAME** name in your project. 
 
 - To use info state functions like stateLayout.infoImage(), please use **same ids** fot the views.
@@ -60,9 +61,7 @@ Simple flow for your application: First of all, add StateLayout to where you wan
 <com.erkutaras.statelayout.StateLayout
     android:id="@+id/stateLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="8dp"
-    android:layout_marginTop="8dp">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -94,6 +93,33 @@ stateLayout.infoImage(R.drawable.ic_android_black_64dp)
 // error/info 
 stateLayout.info()
 ``` 
+
+### Custom Usage
+- If you want to fully change your custom layouts which are used in StateLayout, you can use **loadingLayout**, **infoLayout**, **loadingWithContentLayout**. These attributes values can be layout references.
+
+``` 
+<com.erkutaras.statelayout.StateLayout
+        android:id="@+id/stateLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:loadingLayout="@layout/layout_custom_loading"
+        app:infoLayout="@layout/layout_custom_info"
+        app:state="content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- CONTENT -->
+
+        </RelativeLayout>
+
+    </com.erkutaras.statelayout.StateLayout>
+``` 
+- **state** attribute can be used for initial state for layout. Values of state attributes: 
+```
+loading / content / info / loading_with_content / error / empty / none
+```
 
 ## Issues
 
