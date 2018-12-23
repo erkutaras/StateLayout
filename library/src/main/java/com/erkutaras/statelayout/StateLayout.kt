@@ -245,21 +245,21 @@ class StateLayout @JvmOverloads constructor(context: Context,
         showState(stateInfo)
     }
 
-    fun showLoading(@LayoutRes layoutId: Int) {
+    fun loading(@LayoutRes layoutId: Int) {
         this.loadingLayoutRes = layoutId
         removeView(loadingLayout)
         setupLoadingState()
         showState(provideLoadingStateInfo())
     }
 
-    fun showInfo(@LayoutRes layoutId: Int) {
+    fun info(@LayoutRes layoutId: Int) {
         this.infoLayoutRes = layoutId
         removeView(infoLayout)
         setupInfoState()
         showState(provideInfoStateInfo())
     }
 
-    fun showLoadingWithContent(@LayoutRes layoutId: Int) {
+    fun loadingWithContent(@LayoutRes layoutId: Int) {
         this.loadingWithContentLayoutRes = layoutId
         removeView(loadingWithContentLayout)
         setupLoadingWithContentState()
