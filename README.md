@@ -119,7 +119,22 @@ stateLayout.info()
 - **state** attribute can be used for initial state for layout. Values of state attributes: 
 ```
 loading / content / info / loading_with_content / error / empty / none
+```  
 ```
+val stateLayout = findViewById<StateLayout>(R.id.stateLayout)
+        
+// custom loading 
+stateLayout.loading(R.layout.layout_custom_loading)
+        
+// content 
+stateLayout.content()
+        
+// custom loading with content
+stateLayout.loadingWithContent(R.layout.layout_custom_loading_with_content)
+
+// custom error/info 
+stateLayout.info(R.layout.layout_custom_info)
+``` 
 
 ## Issues
 

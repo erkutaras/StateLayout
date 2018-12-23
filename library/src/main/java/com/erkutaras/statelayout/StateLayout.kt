@@ -132,22 +132,6 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return this
     }
 
-    fun showLoading(stateInfo: StateInfo?) {
-        showState(stateInfo)
-    }
-
-    fun showContent(stateInfo: StateInfo?) {
-        showState(stateInfo)
-    }
-
-    fun showInfo(stateInfo: StateInfo?) {
-        showState(stateInfo)
-    }
-
-    fun showEmpty(stateInfo: StateInfo?) {
-        showState(stateInfo)
-    }
-
     fun content(): StateLayout {
         state = CONTENT
         loadingLayout?.visibility = View.GONE
@@ -221,6 +205,15 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return this
     }
 
+    fun loadingWithContent(): StateLayout {
+        state = LOADING_WITH_CONTENT
+        loadingLayout?.visibility = View.GONE
+        contentLayout?.visibility = View.VISIBLE
+        infoLayout?.visibility = View.GONE
+        loadingWithContentLayout?.visibility = View.VISIBLE
+        return this
+    }
+
     fun showState(stateInfo: StateInfo?) {
         when (stateInfo?.state) {
             LOADING -> loading()
@@ -236,13 +229,41 @@ class StateLayout @JvmOverloads constructor(context: Context,
         }
     }
 
-    fun loadingWithContent(): StateLayout {
-        state = LOADING_WITH_CONTENT
-        loadingLayout?.visibility = View.GONE
-        contentLayout?.visibility = View.VISIBLE
-        infoLayout?.visibility = View.GONE
-        loadingWithContentLayout?.visibility = View.VISIBLE
-        return this
+    fun showLoading(stateInfo: StateInfo?) {
+        showState(stateInfo)
+    }
+
+    fun showContent(stateInfo: StateInfo?) {
+        showState(stateInfo)
+    }
+
+    fun showInfo(stateInfo: StateInfo?) {
+        showState(stateInfo)
+    }
+
+    fun showEmpty(stateInfo: StateInfo?) {
+        showState(stateInfo)
+    }
+
+    fun loading(@LayoutRes layoutId: Int) {
+        this.loadingLayoutRes = layoutId
+        removeView(loadingLayout)
+        setupLoadingState()
+        showState(provideLoadingStateInfo())
+    }
+
+    fun info(@LayoutRes layoutId: Int) {
+        this.infoLayoutRes = layoutId
+        removeView(infoLayout)
+        setupInfoState()
+        showState(provideInfoStateInfo())
+    }
+
+    fun loadingWithContent(@LayoutRes layoutId: Int) {
+        this.loadingWithContentLayoutRes = layoutId
+        removeView(loadingWithContentLayout)
+        setupLoadingWithContentState()
+        showState(provideLoadingWithContentStateInfo())
     }
 
     companion object {
