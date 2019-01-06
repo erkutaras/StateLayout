@@ -123,6 +123,14 @@ class StateLayout @JvmOverloads constructor(context: Context,
         this.state = state
     }
 
+    fun loadingMessage(message: String): StateLayout {
+        loadingLayout?.findViewById<TextView>(R.id.textView_state_layout_loading_message)?.let {
+            it.text = message
+            it.visibility = View.VISIBLE
+        }
+        return loading()
+    }
+
     fun loading(): StateLayout {
         state = LOADING
         loadingLayout?.visibility = View.VISIBLE
@@ -130,6 +138,13 @@ class StateLayout @JvmOverloads constructor(context: Context,
         infoLayout?.visibility = View.GONE
         loadingWithContentLayout?.visibility = GONE
         return this
+    }
+
+    fun loading(@LayoutRes layoutId: Int) {
+        this.loadingLayoutRes = layoutId
+        removeView(loadingLayout)
+        setupLoadingState()
+        showState(provideLoadingStateInfo())
     }
 
     fun content(): StateLayout {
@@ -205,6 +220,13 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return this
     }
 
+    fun info(@LayoutRes layoutId: Int) {
+        this.infoLayoutRes = layoutId
+        removeView(infoLayout)
+        setupInfoState()
+        showState(provideInfoStateInfo())
+    }
+
     fun loadingWithContent(): StateLayout {
         state = LOADING_WITH_CONTENT
         loadingLayout?.visibility = View.GONE
@@ -214,19 +236,11 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return this
     }
 
-    fun showState(stateInfo: StateInfo?) {
-        when (stateInfo?.state) {
-            LOADING -> loading()
-            CONTENT -> content()
-            LOADING_WITH_CONTENT -> loadingWithContent()
-            INFO, ERROR, EMPTY -> {
-                stateInfo.infoImage?.let { infoImage(it) }
-                stateInfo.infoTitle?.let { infoTitle(it) }
-                stateInfo.infoMessage?.let { infoMessage(it) }
-                stateInfo.infoButtonText?.let { infoButtonText(it) }
-            }
-            null, NONE -> hideAll()
-        }
+    fun loadingWithContent(@LayoutRes layoutId: Int) {
+        this.loadingWithContentLayoutRes = layoutId
+        removeView(loadingWithContentLayout)
+        setupLoadingWithContentState()
+        showState(provideLoadingWithContentStateInfo())
     }
 
     fun showLoading(stateInfo: StateInfo?) {
@@ -245,25 +259,19 @@ class StateLayout @JvmOverloads constructor(context: Context,
         showState(stateInfo)
     }
 
-    fun loading(@LayoutRes layoutId: Int) {
-        this.loadingLayoutRes = layoutId
-        removeView(loadingLayout)
-        setupLoadingState()
-        showState(provideLoadingStateInfo())
-    }
-
-    fun info(@LayoutRes layoutId: Int) {
-        this.infoLayoutRes = layoutId
-        removeView(infoLayout)
-        setupInfoState()
-        showState(provideInfoStateInfo())
-    }
-
-    fun loadingWithContent(@LayoutRes layoutId: Int) {
-        this.loadingWithContentLayoutRes = layoutId
-        removeView(loadingWithContentLayout)
-        setupLoadingWithContentState()
-        showState(provideLoadingWithContentStateInfo())
+    fun showState(stateInfo: StateInfo?) {
+        when (stateInfo?.state) {
+            LOADING -> loading()
+            CONTENT -> content()
+            LOADING_WITH_CONTENT -> loadingWithContent()
+            INFO, ERROR, EMPTY -> {
+                stateInfo.infoImage?.let { infoImage(it) }
+                stateInfo.infoTitle?.let { infoTitle(it) }
+                stateInfo.infoMessage?.let { infoMessage(it) }
+                stateInfo.infoButtonText?.let { infoButtonText(it) }
+            }
+            null, NONE -> hideAll()
+        }
     }
 
     companion object {
