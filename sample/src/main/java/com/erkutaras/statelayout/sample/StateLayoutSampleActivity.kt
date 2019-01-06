@@ -60,7 +60,7 @@ class StateLayoutSampleActivity : AppCompatActivity(), StateLayout.OnStateLayout
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
             hasError = false
-            if (url.equals(WEB_URL)) stateLayout.loading()
+            if (url.equals(WEB_URL)) stateLayout.loadingMessage("Loading...")
             else stateLayout.loadingWithContent()
         }
 
