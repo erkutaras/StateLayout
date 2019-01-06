@@ -244,19 +244,27 @@ class StateLayout @JvmOverloads constructor(context: Context,
     }
 
     fun showLoading(stateInfo: StateInfo?) {
-        showState(stateInfo)
+        if (stateInfo?.state == LOADING) showState(stateInfo)
     }
 
     fun showContent(stateInfo: StateInfo?) {
-        showState(stateInfo)
+        if (stateInfo?.state == CONTENT) showState(stateInfo)
     }
 
     fun showInfo(stateInfo: StateInfo?) {
-        showState(stateInfo)
+        if (stateInfo?.state == INFO) showState(stateInfo)
+    }
+
+    fun showLoadingWithContent(stateInfo: StateInfo?) {
+        if (stateInfo?.state == LOADING_WITH_CONTENT) showState(stateInfo)
+    }
+
+    fun showError(stateInfo: StateInfo?) {
+        if (stateInfo?.state == ERROR) showState(stateInfo)
     }
 
     fun showEmpty(stateInfo: StateInfo?) {
-        showState(stateInfo)
+        if (stateInfo?.state == EMPTY) showState(stateInfo)
     }
 
     fun showState(stateInfo: StateInfo?) {
@@ -269,6 +277,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
                 stateInfo.infoTitle?.let { infoTitle(it) }
                 stateInfo.infoMessage?.let { infoMessage(it) }
                 stateInfo.infoButtonText?.let { infoButtonText(it) }
+                stateInfo.onStateLayoutListener?.let { infoButtonListener(it) }
             }
             null, NONE -> hideAll()
         }
