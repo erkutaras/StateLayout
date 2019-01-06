@@ -31,7 +31,7 @@ allprojects {
 **Step 2.** Add the library dependency to your project build.gradle:
 ```
 dependencies {
-    implementation 'com.github.erkutaras:StateLayout:1.2.2'
+    implementation 'com.github.erkutaras:StateLayout:1.2.3'
 }
 ```
 
@@ -41,7 +41,7 @@ _If you don't migrate your project with AndroidX yet, you may need to exclude an
 
 ```
 dependencies {
-    implementation ('com.github.erkutaras:StateLayout:1.2.2') {
+    implementation ('com.github.erkutaras:StateLayout:1.2.3') {
         exclude group: 'androidx.appcompat'
     }
 }
