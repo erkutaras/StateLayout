@@ -1,5 +1,6 @@
 # StateLayout
 [![](https://jitpack.io/v/erkutaras/StateLayout.svg)](https://jitpack.io/#erkutaras/StateLayout)
+[![](https://img.shields.io/badge/Android%20Arsenal-StateLayout-brightgreen.svg)](https://android-arsenal.com/details/1/7435)
 [![](https://img.shields.io/badge/build%20for-android-green.svg)](https://www.android.com)
 [![](https://img.shields.io/badge/made%20with-kotlin-blue.svg)](https://kotlinlang.org)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
