@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.layout_custom_loading.*
  */
 private const val WEB_URL = "https://medium.com/@erkutaras"
 
-class CustomSampleActivity : AppCompatActivity() {
+class CustomSampleActivity : SampleBaseActivity() {
 
     private var hasError: Boolean = false
 
@@ -53,6 +53,8 @@ class CustomSampleActivity : AppCompatActivity() {
         loadUrl()
     }
 
+    override fun getMenuResId(): Int = R.menu.menu_custom
+
     private fun showInfoState() {
         stateLayout.info()
         button_refresh.setOnClickListener { loadUrl() }
@@ -66,20 +68,5 @@ class CustomSampleActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (webView.canGoBack()) webView.goBack()
         else super.onBackPressed()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_custom, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_simple -> {
-                finish()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

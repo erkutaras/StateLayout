@@ -23,6 +23,8 @@
         </activity>
         <activity android:name=".CustomSampleActivity"
                   android:label="StateLayout - Custom Usage"/>
+        <activity android:name=".AnimationLoadingSampleActivity"
+                  android:label="StateLayout - Animation Loading"/>
     </application>
 
 </manifest>

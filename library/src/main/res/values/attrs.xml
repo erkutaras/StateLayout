@@ -14,5 +14,7 @@
         <attr name="loadingLayout" format="reference"/>
         <attr name="infoLayout" format="reference"/>
         <attr name="loadingWithContentLayout" format="reference"/>
+        <attr name="loadingAnimation" format="reference"/>
+        <attr name="loadingWithContentAnimation" format="reference"/>
     </declare-styleable>
 </resources>

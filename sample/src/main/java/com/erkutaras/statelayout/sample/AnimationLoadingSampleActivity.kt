@@ -10,19 +10,22 @@ import android.widget.Toast
 import com.erkutaras.statelayout.StateLayout
 import kotlinx.android.synthetic.main.activity_state_layout_sample.*
 
-private const val WEB_URL = "http://www.erkutaras.com/"
+/**
+ * Created by erkutaras on 2.02.2019.
+ */
+private const val WEB_URL = "https://github.com/erkutaras"
 
-class StateLayoutSampleActivity : SampleBaseActivity(), StateLayout.OnStateLayoutListener {
+class AnimationLoadingSampleActivity : SampleBaseActivity(), StateLayout.OnStateLayoutListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_state_layout_sample)
+        setContentView(R.layout.activity_animation_loading_sample)
 
         webView.webViewClient = SampleWebViewClient(stateLayout, this)
         webView.loadUrl(WEB_URL)
     }
 
-    override fun getMenuResId(): Int = R.menu.menu_sample
+    override fun getMenuResId(): Int = R.menu.menu_animation_loading
 
     override fun onStateLayoutInfoButtonClick() {
         webView.loadUrl(WEB_URL)
@@ -43,7 +46,7 @@ class StateLayoutSampleActivity : SampleBaseActivity(), StateLayout.OnStateLayou
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
             hasError = false
-            if (url.equals(WEB_URL)) stateLayout.loadingMessage("Loading...")
+            if (url.equals(WEB_URL)) stateLayout.loading()
             else stateLayout.loadingWithContent()
         }
 

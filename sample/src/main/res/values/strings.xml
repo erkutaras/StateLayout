@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">StateLayout</string>
     <string name="title_activity_sample">SampleActivity</string>
+    <string name="simple_usage">Simple Usage</string>
+    <string name="custom_usage">Custom Usage</string>
+    <string name="loading_animation">Loading Animation</string>
 </resources>
