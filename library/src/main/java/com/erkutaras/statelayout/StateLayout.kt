@@ -113,11 +113,23 @@ class StateLayout @JvmOverloads constructor(context: Context,
     }
 
     private fun hideAll() {
-        loadingLayout?.visibility = View.GONE
-        contentLayout?.visibility = View.GONE
-        infoLayout?.visibility = View.GONE
-        loadingWithContentLayout?.visibility = GONE
+        updateLoadingVisibility(View.GONE)
+        contentLayout.gone()
+        infoLayout.gone()
+        updateLoadingWithContentVisibility(View.GONE)
     }
+
+    private fun updateLoadingVisibility(visibility: Int) =
+        when (visibility) {
+            View.VISIBLE -> loadingLayout.visible { it.startViewAnimation(R.id.customView_state_layout_loading, loadingAnimation) }
+            else -> loadingLayout.gone { it.clearViewAnimation(R.id.customView_state_layout_loading) }
+        }
+
+    private fun updateLoadingWithContentVisibility(visibility: Int) =
+        when (visibility) {
+            View.VISIBLE -> loadingWithContentLayout.visible { it.startViewAnimation(R.id.customView_state_layout_with_content, loadingWithContentAnimation) }
+            else -> loadingWithContentLayout.gone { it.clearViewAnimation(R.id.customView_state_layout_with_content) }
+        }
 
     private fun throwChildCountException(): Nothing =
         throw IllegalStateException("StateLayout can host only one direct child")
@@ -134,12 +146,17 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return loading()
     }
 
+    fun loadingAnimation(animation: Animation): StateLayout {
+        loadingAnimation = animation
+        return loading()
+    }
+
     fun loading(): StateLayout {
         state = LOADING
-        loadingLayout.visible { it.startViewAnimation(R.id.customView_state_layout_loading, loadingAnimation) }
+        updateLoadingVisibility(View.VISIBLE)
         contentLayout.gone()
         infoLayout.gone()
-        loadingWithContentLayout.gone { it.clearViewAnimation(R.id.customView_state_layout_with_content) }
+        updateLoadingWithContentVisibility(View.GONE)
         return this
     }
 
@@ -152,10 +169,10 @@ class StateLayout @JvmOverloads constructor(context: Context,
 
     fun content(): StateLayout {
         state = CONTENT
-        loadingLayout.gone { it.clearViewAnimation(R.id.customView_state_layout_loading) }
+        updateLoadingVisibility(View.GONE)
         contentLayout.visible()
         infoLayout.gone()
-        loadingWithContentLayout.gone { it.clearViewAnimation(R.id.customView_state_layout_with_content) }
+        updateLoadingWithContentVisibility(View.GONE)
         return this
     }
 
@@ -216,10 +233,10 @@ class StateLayout @JvmOverloads constructor(context: Context,
 
     fun info(): StateLayout {
         state = INFO
-        loadingLayout.gone { it.clearViewAnimation(R.id.customView_state_layout_loading) }
+        updateLoadingVisibility(View.GONE)
         contentLayout.gone()
         infoLayout.visible()
-        loadingWithContentLayout.gone { it.clearViewAnimation(R.id.customView_state_layout_with_content) }
+        updateLoadingWithContentVisibility(View.GONE)
         return this
     }
 
@@ -230,12 +247,17 @@ class StateLayout @JvmOverloads constructor(context: Context,
         showState(provideInfoStateInfo())
     }
 
+    fun loadingWithContentAnimation(animation: Animation): StateLayout {
+        loadingWithContentAnimation = animation
+        return loadingWithContent()
+    }
+
     fun loadingWithContent(): StateLayout {
         state = LOADING_WITH_CONTENT
-        loadingLayout.gone { it.clearViewAnimation(R.id.customView_state_layout_loading) }
+        updateLoadingVisibility(View.GONE)
         contentLayout.visible()
         infoLayout.gone()
-        loadingWithContentLayout.visible { it.startViewAnimation(R.id.customView_state_layout_with_content, loadingWithContentAnimation) }
+        updateLoadingWithContentVisibility(View.VISIBLE)
         return this
     }
 
@@ -259,6 +281,8 @@ class StateLayout @JvmOverloads constructor(context: Context,
     fun showEmpty(stateInfo: StateInfo?) = showState(stateInfo)
 
     fun showState(stateInfo: StateInfo?) {
+        loadingAnimation = stateInfo?.loadingAnimation
+        loadingWithContentAnimation = stateInfo?.loadingWithContentAnimation
         when (stateInfo?.state) {
             LOADING -> loading()
             CONTENT -> content()
@@ -311,6 +335,8 @@ class StateLayout @JvmOverloads constructor(context: Context,
         val infoMessage: String? = null,
         val infoButtonText: String? = null,
         val state: StateLayout.State = INFO,
-        val onStateLayoutListener: StateLayout.OnStateLayoutListener? = null
+        val onStateLayoutListener: StateLayout.OnStateLayoutListener? = null,
+        val loadingAnimation: Animation? = null,
+        val loadingWithContentAnimation: Animation? = null
     )
 }

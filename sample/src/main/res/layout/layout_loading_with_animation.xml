@@ -15,6 +15,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textStyle="normal"
-        tools:text="Loading..."/>
+        android:text="Loading..."/>
 
 </LinearLayout>

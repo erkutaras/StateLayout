@@ -22,8 +22,7 @@ class AnimationLoadingSampleActivity : SampleBaseActivity(), StateLayout.OnState
         setContentView(R.layout.activity_animation_loading_sample)
 
         webView.webViewClient = SampleWebViewClient(stateLayout, this)
-//        webView.loadUrl(WEB_URL)
-        stateLayout.loading()
+        webView.loadUrl(WEB_URL)
     }
 
     override fun getMenuResId(): Int = R.menu.menu_animation_loading
