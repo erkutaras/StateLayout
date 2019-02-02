@@ -9,8 +9,8 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView_state_layout_loading_message"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@id/textView_state_layout_loading_message"
         style="@android:style/TextAppearance.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         tools:visibility="visible"/>
 
     <ProgressBar
-        android:id="@+id/progressBar_state_layout"
+        android:id="@id/progressBar_state_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:tint="?colorAccent"/>

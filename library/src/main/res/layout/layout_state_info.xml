@@ -9,8 +9,8 @@
     android:orientation="vertical"
     android:padding="64dp">
 
-    <ImageView
-        android:id="@+id/imageView_state_layout_info"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@id/imageView_state_layout_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -18,8 +18,8 @@
         tools:srcCompat="@drawable/ic_info_outline_black_64dp"
         tools:visibility="visible"/>
 
-    <TextView
-        android:id="@+id/textView_state_layout_info_title"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@id/textView_state_layout_info_title"
         style="@android:style/TextAppearance.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,8 +30,8 @@
         tools:text="Oops..."
         tools:visibility="visible"/>
 
-    <TextView
-        android:id="@+id/textView_state_layout_info_message"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@id/textView_state_layout_info_message"
         style="@android:style/TextAppearance.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,8 +42,8 @@
         tools:text="Sorry!... Something goes wrong :("
         tools:visibility="visible"/>
 
-    <Button
-        android:id="@+id/button_state_layout_info"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@id/button_state_layout_info"
         style="@android:style/TextAppearance.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
