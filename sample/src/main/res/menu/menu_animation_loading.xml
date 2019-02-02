@@ -6,7 +6,7 @@
         android:title="@string/simple_usage"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/menu_loading_animation"
-        android:title="@string/loading_animation"
+        android:id="@+id/menu_custom"
+        android:title="@string/custom_usage"
         app:showAsAction="never"/>
 </menu>

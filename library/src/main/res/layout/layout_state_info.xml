@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:visibility="gone"
-        tools:srcCompat="@drawable/ic_info_outline_black_64dp"
+        tools:srcCompat="@tools:sample/avatars"
         tools:visibility="visible"/>
 
     <androidx.appcompat.widget.AppCompatTextView
