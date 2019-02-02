@@ -2,8 +2,8 @@
 <resources>
     <!-- layout_state_loading.xml -->
     <item name="textView_state_layout_loading_message" type="id" />
-    <item name="progressBar_state_layout" type="id" />
-    <item name="view_state_layout_loading" type="id" />
+    <item name="progressBar_state_layout_loading" type="id" />
+    <item name="customView_state_layout_loading" type="id" />
 
     <!-- layout_state_info.xml -->
     <item name="imageView_state_layout_info" type="id" />
@@ -13,4 +13,5 @@
 
     <!-- layout_state_loading_with_content.xml -->
     <item name="progressBar_state_layout_with_content" type="id" />
+    <item name="customView_state_layout_with_content" type="id" />
 </resources>

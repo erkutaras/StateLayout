@@ -3,6 +3,8 @@ package com.erkutaras.statelayout
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -32,6 +34,9 @@ class StateLayout @JvmOverloads constructor(context: Context,
     @LayoutRes
     private var loadingWithContentLayoutRes: Int = R.layout.layout_state_loading_with_content
 
+    private var loadingAnimation: Animation? = null
+    private var loadingWithContentAnimation: Animation? = null
+
     init {
         if (isInEditMode) {
             state = CONTENT
@@ -44,6 +49,13 @@ class StateLayout @JvmOverloads constructor(context: Context,
                     loadingLayoutRes = getResourceId(R.styleable.StateLayout_loadingLayout, R.layout.layout_state_loading)
                     infoLayoutRes = getResourceId(R.styleable.StateLayout_infoLayout, R.layout.layout_state_info)
                     loadingWithContentLayoutRes = getResourceId(R.styleable.StateLayout_loadingWithContentLayout, R.layout.layout_state_loading_with_content)
+
+                    getResourceId(R.styleable.StateLayout_loadingAnimation, 0).notZero {
+                        loadingAnimation = AnimationUtils.loadAnimation(context, it)
+                    }
+                    getResourceId(R.styleable.StateLayout_loadingWithContentAnimation, 0).notZero {
+                        loadingWithContentAnimation = AnimationUtils.loadAnimation(context, it)
+                    }
                 } finally {
                     recycle()
                 }
@@ -124,10 +136,10 @@ class StateLayout @JvmOverloads constructor(context: Context,
 
     fun loading(): StateLayout {
         state = LOADING
-        loadingLayout?.visibility = View.VISIBLE
-        contentLayout?.visibility = View.GONE
-        infoLayout?.visibility = View.GONE
-        loadingWithContentLayout?.visibility = GONE
+        loadingLayout.visible { it.startViewAnimation(R.id.customView_state_layout_loading, loadingAnimation) }
+        contentLayout.gone()
+        infoLayout.gone()
+        loadingWithContentLayout.gone { it.clearViewAnimation(R.id.customView_state_layout_with_content) }
         return this
     }
 
@@ -140,10 +152,10 @@ class StateLayout @JvmOverloads constructor(context: Context,
 
     fun content(): StateLayout {
         state = CONTENT
-        loadingLayout?.visibility = View.GONE
-        contentLayout?.visibility = View.VISIBLE
-        infoLayout?.visibility = View.GONE
-        loadingWithContentLayout?.visibility = GONE
+        loadingLayout.gone { it.clearViewAnimation(R.id.customView_state_layout_loading) }
+        contentLayout.visible()
+        infoLayout.gone()
+        loadingWithContentLayout.gone { it.clearViewAnimation(R.id.customView_state_layout_with_content) }
         return this
     }
 
@@ -204,10 +216,10 @@ class StateLayout @JvmOverloads constructor(context: Context,
 
     fun info(): StateLayout {
         state = INFO
-        loadingLayout?.visibility = View.GONE
-        contentLayout?.visibility = View.GONE
-        infoLayout?.visibility = View.VISIBLE
-        loadingWithContentLayout?.visibility = GONE
+        loadingLayout.gone { it.clearViewAnimation(R.id.customView_state_layout_loading) }
+        contentLayout.gone()
+        infoLayout.visible()
+        loadingWithContentLayout.gone { it.clearViewAnimation(R.id.customView_state_layout_with_content) }
         return this
     }
 
@@ -220,10 +232,10 @@ class StateLayout @JvmOverloads constructor(context: Context,
 
     fun loadingWithContent(): StateLayout {
         state = LOADING_WITH_CONTENT
-        loadingLayout?.visibility = View.GONE
-        contentLayout?.visibility = View.VISIBLE
-        infoLayout?.visibility = View.GONE
-        loadingWithContentLayout?.visibility = View.VISIBLE
+        loadingLayout.gone { it.clearViewAnimation(R.id.customView_state_layout_loading) }
+        contentLayout.visible()
+        infoLayout.gone()
+        loadingWithContentLayout.visible { it.startViewAnimation(R.id.customView_state_layout_with_content, loadingWithContentAnimation) }
         return this
     }
 

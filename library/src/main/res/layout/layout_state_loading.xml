@@ -22,7 +22,7 @@
         tools:visibility="visible"/>
 
     <ProgressBar
-        android:id="@id/progressBar_state_layout"
+        android:id="@id/progressBar_state_layout_loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:tint="?colorAccent"/>
