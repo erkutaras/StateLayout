@@ -58,7 +58,7 @@ Simple flow for your application: First of all, add StateLayout to where you wan
 - To use info state functions like stateLayout.infoImage(), please use **same ids** fot the views.
 
 **Sample code:**
-```
+```xml
 <com.erkutaras.statelayout.StateLayout
     android:id="@+id/stateLayout"
     android:layout_width="match_parent"
@@ -71,7 +71,7 @@ Simple flow for your application: First of all, add StateLayout to where you wan
     </RelativeLayout>
 </com.erkutaras.statelayout.StateLayout>
 ```   
-```
+```kotlin
 val stateLayout = findViewById<StateLayout>(R.id.stateLayout)
         
 // loading 
@@ -95,7 +95,7 @@ stateLayout.info()
 ### 2. Custom Usage
 - If you want to fully change your custom layouts which are used in StateLayout, you can use **loadingLayout**, **infoLayout**, **loadingWithContentLayout**. These attributes values can be layout references.
 
-``` 
+```xml
 <com.erkutaras.statelayout.StateLayout
         android:id="@+id/stateLayout"
         android:layout_width="match_parent"
@@ -115,7 +115,7 @@ stateLayout.info()
 ```
 loading / content / info / loading_with_content / error / empty / none
 ```  
-```
+```kotlin
 val stateLayout = findViewById<StateLayout>(R.id.stateLayout)
         
 // custom loading 
@@ -139,7 +139,7 @@ stateLayout.info(R.layout.layout_custom_info)
 
 **attrs:** 
 ```loadingAnimation``` can be used for LOADING state. ```loadingWithContentAnimation``` can be used for LOADING_WITH_CONTENT state
-```
+```xml
 <com.erkutaras.statelayout.StateLayout
     android:id="@+id/stateLayout"
     android:layout_width="match_parent"
@@ -154,7 +154,7 @@ stateLayout.info(R.layout.layout_custom_info)
     </RelativeLayout>
 </com.erkutaras.statelayout.StateLayout>
 ```   
-```
+```kotlin
 val stateLayout = findViewById<StateLayout>(R.id.stateLayout)
 val animation = AnimationUtils.loadAnimation(context, R.anim.anim_blink)
         
