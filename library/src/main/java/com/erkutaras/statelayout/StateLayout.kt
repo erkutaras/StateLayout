@@ -200,6 +200,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return info()
     }
 
+    @Deprecated("infoButtonListener(block: () -> Unit) calling is more convenient")
     fun infoButtonListener(onStateLayoutListener: OnStateLayoutListener?): StateLayout {
         infoLayout.findView<Button>(R.id.button_state_layout_info) {
             onStateLayoutListener?.onStateLayoutInfoButtonClick()
@@ -293,6 +294,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
                 stateInfo.infoMessage?.let { infoMessage(it) }
                 stateInfo.infoButtonText?.let { infoButtonText(it) }
                 stateInfo.onStateLayoutListener?.let { infoButtonListener(it) }
+                stateInfo.onInfoButtonClick?.let { infoButtonListener(it) }
             }
             null, NONE -> hideAll()
         }
@@ -335,7 +337,9 @@ class StateLayout @JvmOverloads constructor(context: Context,
         val infoMessage: String? = null,
         val infoButtonText: String? = null,
         val state: StateLayout.State = INFO,
+        @Deprecated("onInfoButtonClick is more convenient")
         val onStateLayoutListener: StateLayout.OnStateLayoutListener? = null,
+        val onInfoButtonClick: (() -> Unit)? = null,
         val loadingAnimation: Animation? = null,
         val loadingWithContentAnimation: Animation? = null
     )
