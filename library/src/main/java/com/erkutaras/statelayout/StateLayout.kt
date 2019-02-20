@@ -203,7 +203,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
     @Deprecated("infoButtonListener(block: () -> Unit) calling is more convenient")
     fun infoButtonListener(onStateLayoutListener: OnStateLayoutListener?): StateLayout {
         infoLayout.findView<Button>(R.id.button_state_layout_info) {
-            onStateLayoutListener?.onStateLayoutInfoButtonClick()
+            setOnClickListener { onStateLayoutListener?.onStateLayoutInfoButtonClick() }
         }
         return info()
     }
