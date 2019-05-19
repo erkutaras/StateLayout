@@ -32,19 +32,7 @@ allprojects {
 **Step 2.** Add the library dependency to your project build.gradle:
 ```
 dependencies {
-    implementation 'com.github.erkutaras:StateLayout:1.3.2'
-}
-```
-
-**Optional Step.** Add the library dependency to your project build.gradle with excluded androidx.appcompat:
-
-_If you don't migrate your project with AndroidX yet, you may need to exclude androidx to prevent support libraries issues._
-
-```
-dependencies {
-    implementation ('com.github.erkutaras:StateLayout:1.3.2') {
-        exclude group: 'androidx.appcompat'
-    }
+    implementation 'com.github.erkutaras:StateLayout:1.4.0'
 }
 ```
 
@@ -100,9 +88,9 @@ stateLayout.info()
         android:id="@+id/stateLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:loadingLayout="@layout/layout_custom_loading"
-        app:infoLayout="@layout/layout_custom_info"
-        app:state="content">
+        app:sl_loadingLayout="@layout/layout_custom_loading"
+        app:sl_infoLayout="@layout/layout_custom_info"
+        app:sl_state="content">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -138,14 +126,14 @@ stateLayout.info(R.layout.layout_custom_info)
 ```customView_state_layout_loading``` can be used in layout_state_loading.xml or your custom loading layout. ```customView_state_layout_with_content``` can be used in layout_state_loading_with_content.xml or your custom loading wit content layout.
 
 **attrs:** 
-```loadingAnimation``` can be used for LOADING state. ```loadingWithContentAnimation``` can be used for LOADING_WITH_CONTENT state
+```sl_loadingAnimation``` can be used for LOADING state. ```sl_loadingWithContentAnimation``` can be used for LOADING_WITH_CONTENT state
 ```xml
 <com.erkutaras.statelayout.StateLayout
     android:id="@+id/stateLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:loadingAnimation="@anim/anim_blink"
-    app:loadingWithContentAnimation="@anim/anim_blink">
+    app:sl_loadingAnimation="@anim/anim_blink"
+    app:sl_loadingWithContentAnimation="@anim/anim_blink">
 
     <RelativeLayout
         android:layout_width="match_parent"

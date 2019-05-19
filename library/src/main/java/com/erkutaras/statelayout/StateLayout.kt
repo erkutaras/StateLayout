@@ -45,15 +45,15 @@ class StateLayout @JvmOverloads constructor(context: Context,
         context.theme.obtainStyledAttributes(attrs, R.styleable.StateLayout, 0, 0)
             .apply {
                 try {
-                    state = State.values()[getInteger(R.styleable.StateLayout_state, NONE.ordinal)]
-                    loadingLayoutRes = getResourceId(R.styleable.StateLayout_loadingLayout, R.layout.layout_state_loading)
-                    infoLayoutRes = getResourceId(R.styleable.StateLayout_infoLayout, R.layout.layout_state_info)
-                    loadingWithContentLayoutRes = getResourceId(R.styleable.StateLayout_loadingWithContentLayout, R.layout.layout_state_loading_with_content)
+                    state = State.values()[getInteger(R.styleable.StateLayout_sl_state, NONE.ordinal)]
+                    loadingLayoutRes = getResourceId(R.styleable.StateLayout_sl_loadingLayout, R.layout.layout_state_loading)
+                    infoLayoutRes = getResourceId(R.styleable.StateLayout_sl_infoLayout, R.layout.layout_state_info)
+                    loadingWithContentLayoutRes = getResourceId(R.styleable.StateLayout_sl_loadingWithContentLayout, R.layout.layout_state_loading_with_content)
 
-                    getResourceId(R.styleable.StateLayout_loadingAnimation, 0).notZero {
+                    getResourceId(R.styleable.StateLayout_sl_loadingAnimation, 0).notZero {
                         loadingAnimation = AnimationUtils.loadAnimation(context, it)
                     }
-                    getResourceId(R.styleable.StateLayout_loadingWithContentAnimation, 0).notZero {
+                    getResourceId(R.styleable.StateLayout_sl_loadingWithContentAnimation, 0).notZero {
                         loadingWithContentAnimation = AnimationUtils.loadAnimation(context, it)
                     }
                 } finally {
