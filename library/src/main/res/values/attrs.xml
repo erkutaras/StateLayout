@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="StateLayout">
-        <attr name="state" format="enum">
+        <attr name="sl_state" format="enum">
             <enum name="loading" value="0"/>
             <enum name="content" value="1"/>
             <enum name="info" value="2"/>
@@ -11,10 +11,10 @@
             <enum name="none" value="6"/>
         </attr>
 
-        <attr name="loadingLayout" format="reference"/>
-        <attr name="infoLayout" format="reference"/>
-        <attr name="loadingWithContentLayout" format="reference"/>
-        <attr name="loadingAnimation" format="reference"/>
-        <attr name="loadingWithContentAnimation" format="reference"/>
+        <attr name="sl_loadingLayout" format="reference"/>
+        <attr name="sl_infoLayout" format="reference"/>
+        <attr name="sl_loadingWithContentLayout" format="reference"/>
+        <attr name="sl_loadingAnimation" format="reference"/>
+        <attr name="sl_loadingWithContentAnimation" format="reference"/>
     </declare-styleable>
 </resources>

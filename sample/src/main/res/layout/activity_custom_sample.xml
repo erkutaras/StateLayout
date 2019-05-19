@@ -13,9 +13,9 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        app:loadingLayout="@layout/layout_custom_loading"
-        app:infoLayout="@layout/layout_custom_info"
-        app:state="content">
+        app:sl_loadingLayout="@layout/layout_custom_loading"
+        app:sl_infoLayout="@layout/layout_custom_info"
+        app:sl_state="content">
 
         <WebView
             android:id="@+id/webView"
