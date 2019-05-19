@@ -81,7 +81,7 @@ stateLayout.info()
 ``` 
 
 ### 2. Custom Usage
-- If you want to fully change your custom layouts which are used in StateLayout, you can use **loadingLayout**, **infoLayout**, **loadingWithContentLayout**. These attributes values can be layout references.
+- If you want to fully change your custom layouts which are used in StateLayout, you can use **sl_loadingLayout**, **sl_infoLayout**, **sl_loadingWithContentLayout**. These attributes values can be layout references.
 
 ```xml
 <com.erkutaras.statelayout.StateLayout
