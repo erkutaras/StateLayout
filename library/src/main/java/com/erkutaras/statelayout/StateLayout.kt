@@ -215,6 +215,13 @@ class StateLayout @JvmOverloads constructor(context: Context,
         info()
     }
 
+    fun infoButtonVisibility(visibility: Int) {
+        infoLayout.findView<Button>(R.id.button_state_layout_info) {
+            this.visibility = visibility
+        }
+        info()
+    }
+
     fun infoButtonText(buttonText: String): StateLayout {
         infoLayout.findView<Button>(R.id.button_state_layout_info) {
             text = buttonText
