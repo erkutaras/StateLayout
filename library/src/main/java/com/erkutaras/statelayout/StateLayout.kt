@@ -204,7 +204,6 @@ class StateLayout @JvmOverloads constructor(context: Context,
         infoLayout.findView<Button>(R.id.button_state_layout_info) {
             setOnClickListener { block.invoke() }
         }
-        info()
     }
 
     fun infoButtonVisibility(visibility: Int) {
