@@ -32,7 +32,7 @@ allprojects {
 **Step 2.** Add the library dependency to your project build.gradle:
 ```
 dependencies {
-    implementation 'com.github.erkutaras:StateLayout:1.4.2'
+    implementation 'com.github.erkutaras:StateLayout:1.5.0'
 }
 ```
 
@@ -169,7 +169,7 @@ Patches and new features are encouraged, and may be submitted by [forking this p
 
 # License
 
-    Copyright 2018-2019 erkutaras
+    Copyright 2018-2020 erkutaras
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
