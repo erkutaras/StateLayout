@@ -15,19 +15,21 @@ import kotlinx.android.synthetic.main.activity_state_layout_sample.*
  */
 private const val WEB_URL = "https://github.com/erkutaras"
 
-class AnimationLoadingSampleActivity : SampleBaseActivity(), StateLayout.OnStateLayoutListener {
+class AnimationLoadingSampleActivity : SampleBaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_animation_loading_sample)
 
-        webView.webViewClient = SampleWebViewClient(stateLayout, this)
+        webView.webViewClient = SampleWebViewClient(stateLayout) {
+            onStateLayoutInfoButtonClick()
+        }
         webView.loadUrl(WEB_URL)
     }
 
     override fun getMenuResId(): Int = R.menu.menu_animation_loading
 
-    override fun onStateLayoutInfoButtonClick() {
+    private fun onStateLayoutInfoButtonClick() {
         webView.loadUrl(WEB_URL)
         Toast.makeText(this, "Refreshing Page...", Toast.LENGTH_SHORT).show()
     }
@@ -38,7 +40,7 @@ class AnimationLoadingSampleActivity : SampleBaseActivity(), StateLayout.OnState
     }
 
     private class SampleWebViewClient(val stateLayout: StateLayout,
-                                      val onStateLayoutListener: StateLayout.OnStateLayoutListener)
+                                      val onClick: () -> Unit)
         : WebViewClient() {
 
         var hasError: Boolean = false
@@ -62,9 +64,7 @@ class AnimationLoadingSampleActivity : SampleBaseActivity(), StateLayout.OnState
                 .infoTitle("Ooops.... :(")
                 .infoMessage("Unexpected error occurred. Please refresh the page!")
                 .infoButtonText("Refresh")
-                .infoButtonListener {
-                    onStateLayoutListener.onStateLayoutInfoButtonClick()
-                }
+                .infoButtonListener(onClick)
         }
 
     }

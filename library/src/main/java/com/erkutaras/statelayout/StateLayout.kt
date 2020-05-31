@@ -200,14 +200,6 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return info()
     }
 
-    @Deprecated("infoButtonListener(block: () -> Unit) calling is more convenient")
-    fun infoButtonListener(onStateLayoutListener: OnStateLayoutListener?): StateLayout {
-        infoLayout.findView<Button>(R.id.button_state_layout_info) {
-            setOnClickListener { onStateLayoutListener?.onStateLayoutInfoButtonClick() }
-        }
-        return info()
-    }
-
     fun infoButtonListener(block: () -> Unit) {
         infoLayout.findView<Button>(R.id.button_state_layout_info) {
             setOnClickListener { block.invoke() }
@@ -230,10 +222,10 @@ class StateLayout @JvmOverloads constructor(context: Context,
         return info()
     }
 
-    fun infoButton(buttonText: String, onStateLayoutListener: OnStateLayoutListener?): StateLayout {
+    fun infoButton(buttonText: String, block: (() -> Unit)?): StateLayout {
         infoLayout.findView<Button>(R.id.button_state_layout_info) {
             text = buttonText
-            setOnClickListener { onStateLayoutListener?.onStateLayoutInfoButtonClick() }
+            setOnClickListener { block?.invoke() }
             visibility = View.VISIBLE
         }
         return info()
@@ -300,7 +292,6 @@ class StateLayout @JvmOverloads constructor(context: Context,
                 stateInfo.infoTitle?.let { infoTitle(it) }
                 stateInfo.infoMessage?.let { infoMessage(it) }
                 stateInfo.infoButtonText?.let { infoButtonText(it) }
-                stateInfo.onStateLayoutListener?.let { infoButtonListener(it) }
                 stateInfo.onInfoButtonClick?.let { infoButtonListener(it) }
             }
             null, NONE -> hideAll()
@@ -330,10 +321,6 @@ class StateLayout @JvmOverloads constructor(context: Context,
         fun provideNoneStateInfo() = StateInfo(state = NONE)
     }
 
-    interface OnStateLayoutListener {
-        fun onStateLayoutInfoButtonClick()
-    }
-
     enum class State {
         LOADING, CONTENT, INFO, LOADING_WITH_CONTENT, ERROR, EMPTY, NONE
     }
@@ -343,9 +330,7 @@ class StateLayout @JvmOverloads constructor(context: Context,
         val infoTitle: String? = null,
         val infoMessage: String? = null,
         val infoButtonText: String? = null,
-        val state: StateLayout.State = INFO,
-        @Deprecated("onInfoButtonClick is more convenient")
-        val onStateLayoutListener: StateLayout.OnStateLayoutListener? = null,
+        val state: State = INFO,
         val onInfoButtonClick: (() -> Unit)? = null,
         val loadingAnimation: Animation? = null,
         val loadingWithContentAnimation: Animation? = null
